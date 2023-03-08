@@ -40,13 +40,14 @@ class WiklogPackageComponentsCommand extends Command
         return self::SUCCESS;
     }
 
-    public function publishFilesInFolder($folder_origin, $destination_files) {
-        foreach(new DirectoryIterator($folder_origin) as $file) {
+    public function publishFilesInFolder($folder_origin, $destination_files)
+    {
+        foreach (new DirectoryIterator($folder_origin) as $file) {
             if ($file->isFile()) {
-                $file_contents = file_get_contents($folder_origin . $file->getFilename());
-                $this->createFile($destination_files . DIRECTORY_SEPARATOR, $file->getFilename(), $file_contents);
+                $file_contents = file_get_contents($folder_origin.$file->getFilename());
+                $this->createFile($destination_files.DIRECTORY_SEPARATOR, $file->getFilename(), $file_contents);
 
-                $this->comment($file->getFilename() . ' publié');
+                $this->comment($file->getFilename().' publié');
             }
         }
     }

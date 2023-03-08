@@ -17,9 +17,9 @@ class WiklogPackageComponentsServiceProvider extends PackageServiceProvider
          */
         $package
             ->name('wiklog-package-components')
-            ->hasConfigFile()
-            ->hasViews()
-            ->hasMigration('create_wiklog-package-components_table')
+            // ->hasConfigFile()
+            // ->hasViews()
+            // ->hasMigration('create_wiklog-package-components_table')
             ->hasCommand(WiklogPackageComponentsCommand::class);
     }
 }

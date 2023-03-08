@@ -56,6 +56,11 @@ $wiklogPackageComponents = new Wiklog\WiklogPackageComponents();
 echo $wiklogPackageComponents->echoPhrase('Hello, Wiklog!');
 ```
 
+You can publish inputs components:
+```bash
+php artisan wiklog-inputs-components:publish
+```
+
 ## Testing
 
 ```bash

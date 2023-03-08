@@ -2,11 +2,12 @@
 
 namespace Wiklog\WiklogPackageComponents\Commands;
 
+use DirectoryIterator;
 use Illuminate\Console\Command;
 
 class WiklogPackageComponentsCommand extends Command
 {
-    public $signature = 'wiklog-components:publish';
+    public $signature = 'wiklog-inputs-components:publish';
 
     public $description = 'Publie et crée les différents composants dans le projet Laravel';
 
@@ -21,20 +22,33 @@ class WiklogPackageComponentsCommand extends Command
 
     public function handle(): int
     {
-        $component_dir = app_path('View/Components/Inputs');
-        $input_component_content = file_get_contents(__DIR__.'/../components/InputText.php');
-        $this->createFile($component_dir.DIRECTORY_SEPARATOR, 'InputText.php', $input_component_content);
+        //Publish Inputs classes
+        $folder_origin = __DIR__.'/../../resources/components/inputs/classes/';
+        $destination = app_path('View/Components/Inputs');
+        $this->publishFilesInFolder($folder_origin, $destination);
 
-        $view_path = resource_path('views/components/inputs');
-        $input_view_content = file_get_contents(__DIR__.'/../views/input-text.blade.php');
-        $this->createFile($view_path.DIRECTORY_SEPARATOR, 'input-text.blade.php', $input_view_content);
+        //Publish Inputs views
+        $folder_origin = __DIR__.'/../../resources/components/inputs/views/';
+        $destination = resource_path('views/components/inputs');
+        $this->publishFilesInFolder($folder_origin, $destination);
 
-        $this->comment('Composants publiés');
+        $this->comment('Composants inputs publiés');
 
         $this->composer->dumpOptimized();
         $this->comment('Package installé');
 
         return self::SUCCESS;
+    }
+
+    public function publishFilesInFolder($folder_origin, $destination_files) {
+        foreach(new DirectoryIterator($folder_origin) as $file) {
+            if ($file->isFile()) {
+                $file_contents = file_get_contents($folder_origin . $file->getFilename());
+                $this->createFile($destination_files . DIRECTORY_SEPARATOR, $file->getFilename(), $file_contents);
+
+                $this->comment($file->getFilename() . ' publié');
+            }
+        }
     }
 
     public static function createFile($path, $filename, $contents)

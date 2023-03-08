@@ -22,25 +22,25 @@
 
   <input type="text" name="{{ $property }}" id="{{ $property }}" {{ $attributes->merge(['class' => 'form-control' . ($errors->has($property) ? ' is-invalid' : '')]) }}
     placeholder="{{ $placeholder ?? $label }}"
-    value="{{ old($property, $entity != null
-      ?
-        ($itemPivot == null
-          ? ($itemProperty == null
-            ? $entity->$property
+    value="{{ old($property, $entity != null 
+      ? 
+        ($itemPivot == null 
+          ? ($itemProperty == null 
+            ? $entity->$property 
             : $entity->$itemProperty)
-          : ($pivot
-            ? $entity->pivot->$itemPivot
+          : ($pivot 
+            ? $entity->pivot->$itemPivot 
             : $entity->$itemPivot)
-        )
+        ) 
       : ($old ?? '')) }}"
-    {{ boolval($required) ? 'required="required"' : '' }}
+    {{ bool_val($required) ? 'required="required"' : '' }}
     {{ $maxlength != null ? 'maxlength=' . $maxlength : '' }}
     {{ $minlength != null ? 'minlength=' . $minlength : '' }}
-    {{ boolval($readonly) ? 'readonly="readonly"' : '' }}
-    {{ boolval($disabled) ? 'disabled' : '' }}
-    {{ boolval($autofocus) ? 'autofocus' : '' }}
+    {{ bool_val($readonly) ? 'readonly="readonly"' : '' }}
+    {{ bool_val($disabled) ? 'disabled' : '' }}
+    {{ bool_val($autofocus) ? 'autofocus' : '' }}
   />
-  <label for="{{ $property }}" class="{{ $classLabel ?? '' }} {{ boolval($required) ? 'required' : '' }}">
+  <label for="{{ $property }}" class="{{ $classLabel ?? '' }} {{ bool_val($required) ? 'required' : '' }}">
     {{ $label }}
   </label>
   @error($property)
@@ -50,7 +50,7 @@
   @enderror
 </div>
 
-@if (boolval($autofocus))
+@if (bool_val($autofocus))  
   <script>
     window.onload = function() {
       document.getElementById("{{ $property }}").focus();

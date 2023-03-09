@@ -1,6 +1,6 @@
 # Package contenant divers composants pour les formulaires
 
-Starter kit pour le développement de solutions sur le framework Laravel. Il s'agit d'une version de test. Update 0.2.
+Starter kit pour le développement de solutions sur le framework Laravel. Il s'agit d'une version de test.
 
 ## Installation
 
